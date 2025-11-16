@@ -6,10 +6,12 @@ use App\Features\Entry\Enums\EntryMoodEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Entry extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     public static function booted(): void
     {

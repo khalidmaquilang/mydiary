@@ -15,12 +15,11 @@ class EntriesTable
     {
         return $table
             ->columns([
-                TextColumn::make('user.name')
-                    ->searchable(),
                 TextColumn::make('title')
                     ->searchable(),
-                TextColumn::make('slug')
-                    ->searchable(),
+                TextColumn::make('entry_date')
+                    ->date()
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -41,6 +40,7 @@ class EntriesTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('entry_date', 'desc');
     }
 }
