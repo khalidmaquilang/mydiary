@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Features\Entry\Enums\EntryMoodEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -30,7 +31,9 @@ class Entry extends Model
         return [
             'id' => 'integer',
             'user_id' => 'integer',
-            'content' => 'array'
+            'content' => 'array',
+            'entry_date' => 'date',
+            'mood' => EntryMoodEnum::class
         ];
     }
 
