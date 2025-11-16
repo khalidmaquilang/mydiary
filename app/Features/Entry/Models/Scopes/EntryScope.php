@@ -14,13 +14,13 @@ class EntryScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        $user_id = auth()->id();
-        if ($user_id === null) {
+        $panel = Filament::getId();
+        if ($panel === 'admin') {
             return;
         }
 
-        $panel = Filament::getId();
-        if ($panel === 'admin') {
+        $user_id = auth()->id();
+        if ($user_id === null) {
             return;
         }
 
