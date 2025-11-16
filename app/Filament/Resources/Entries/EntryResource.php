@@ -11,6 +11,7 @@ use App\Filament\Resources\Entries\Schemas\EntryInfolist;
 use App\Filament\Resources\Entries\Tables\EntriesTable;
 use App\Models\Entry;
 use BackedEnum;
+use CodeWithDennis\FilamentLucideIcons\Enums\LucideIcon;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -20,7 +21,7 @@ class EntryResource extends Resource
 {
     protected static ?string $model = Entry::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = LucideIcon::BookHeart;
 
     protected static ?string $recordTitleAttribute = 'title';
 

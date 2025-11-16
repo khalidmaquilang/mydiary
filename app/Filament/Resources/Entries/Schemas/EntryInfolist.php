@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Entries\Schemas;
 
 use App\Models\Entry;
+use CodeWithDennis\FilamentLucideIcons\Enums\LucideIcon;
 use Filament\Forms\Components\RichEditor\RichContentRenderer;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
@@ -27,7 +28,7 @@ class EntryInfolist
                             ->schema([
                                 Section::make('✍️ Your Story')
                                     ->description('The memory captured in this entry - your thoughts, dreams, and experiences')
-                                    ->icon('heroicon-o-book-open')
+                                    ->icon(LucideIcon::BookOpen)
                                     ->schema([
                                         TextEntry::make('content')
                                             ->label('Your Entry')
@@ -52,7 +53,7 @@ class EntryInfolist
                                             })
                                             ->color('gray')
                                             ->size(TextSize::Small)
-                                            ->icon('heroicon-o-information-circle')
+                                            ->icon(LucideIcon::Info)
                                             ->columnSpanFull()
                                             ->helperText('Statistics about your entry ✨')
                                             ->extraAttributes([
@@ -72,14 +73,13 @@ class EntryInfolist
                                 // Entry Title Section
                                 Section::make('📝 Entry Details')
                                     ->description('Your diary entry information')
-                                    ->icon('heroicon-o-document-text')
+                                    ->icon(LucideIcon::Text)
                                     ->schema([
                                         TextEntry::make('title')
                                             ->label('Title')
                                             ->size(TextSize::Large)
                                             ->weight(FontWeight::Bold)
                                             ->color('primary')
-                                            ->icon('heroicon-m-pencil-square')
                                             ->copyable()
                                             ->copyMessage('Title copied to clipboard! 📋')
                                             ->columnSpanFull()
@@ -94,14 +94,14 @@ class EntryInfolist
                                     ]),
                                 Section::make('📅 Timeline')
                                     ->description('When this memory was captured')
-                                    ->icon('heroicon-o-calendar-days')
+                                    ->icon(LucideIcon::CalendarDays)
                                     ->schema([
                                         TextEntry::make('entry_date')
                                             ->label('Entry Date')
                                             ->dateTime('l, M j, Y \a\t g:i A')
                                             ->badge()
                                             ->color('primary')
-                                            ->icon('heroicon-m-calendar-days')
+                                            ->icon(LucideIcon::CalendarDays)
                                             ->size(TextSize::Medium)
                                             ->weight(FontWeight::Medium)
                                             ->placeholder('Date not set')
@@ -111,7 +111,7 @@ class EntryInfolist
                                             ->label('Written')
                                             ->since()
                                             ->dateTooltip()
-                                            ->icon('heroicon-o-pencil')
+                                            ->icon(LucideIcon::Pencil)
                                             ->color('gray')
                                             ->size(TextSize::Small),
 
@@ -119,7 +119,7 @@ class EntryInfolist
                                             ->label('Last Modified')
                                             ->since()
                                             ->dateTooltip()
-                                            ->icon('heroicon-o-arrow-path')
+                                            ->icon(LucideIcon::RotateCcw)
                                             ->color('gray')
                                             ->size(TextSize::Small)
                                             ->visible(fn (Entry $record): bool => $record->created_at->ne($record->updated_at)),
@@ -129,7 +129,7 @@ class EntryInfolist
 
                                 Section::make('💭 Emotional State')
                                     ->description('How you were feeling')
-                                    ->icon('heroicon-o-heart')
+                                    ->icon(LucideIcon::Heart)
                                     ->schema([
                                         TextEntry::make('mood')
                                             ->label('Mood')
