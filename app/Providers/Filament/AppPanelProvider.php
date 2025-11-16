@@ -32,6 +32,7 @@ class AppPanelProvider extends PanelProvider
             ->login()
             ->registration()
             ->passwordReset()
+            ->profile()
             ->colors([
                 'primary' => Color::Amber,
             ])
