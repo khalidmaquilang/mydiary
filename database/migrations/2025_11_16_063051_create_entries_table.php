@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('entries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->date('entry_date');
+            $table->dateTime('entry_date');
             $table->string('mood');
             $table->string('title');
             $table->string('slug')->unique();

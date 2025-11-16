@@ -42,7 +42,7 @@ class Entry extends Model
             'id' => 'integer',
             'user_id' => 'integer',
             'content' => 'array',
-            'entry_date' => 'date',
+            'entry_date' => 'datetime',
             'mood' => EntryMoodEnum::class
         ];
     }

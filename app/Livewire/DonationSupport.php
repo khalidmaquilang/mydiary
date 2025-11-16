@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -43,10 +44,11 @@ class DonationSupport extends Component
 
     public function getQrCodeUrl(): string
     {
-        $instapay = '00020101021127610012com.p2pqrpay0111BOPIPHMMXXX0208999644030414000091191949195204601653036085802PH5905Eskie6011Makati City63047182';
+        return Cache::remember('my-qr', 60 * 10, function () {
+            $instapay = '00020101021127610012com.p2pqrpay0111BOPIPHMMXXX0208999644030414000091191949195204601653036085802PH5905Eskie6011Makati City63047182';
 
-        // Using QR Server API for QR code generation
-        return "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($instapay);
+            return "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($instapay);
+        });
     }
 
     public function render()

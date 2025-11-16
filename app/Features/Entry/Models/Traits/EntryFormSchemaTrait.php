@@ -4,6 +4,7 @@ namespace App\Features\Entry\Models\Traits;
 
 use App\Features\Entry\Enums\EntryMoodEnum;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -30,12 +31,13 @@ trait EntryFormSchemaTrait
                         'md' => 3,
                     ])
                         ->schema([
-                            DatePicker::make('entry_date')
+                            DateTimePicker::make('entry_date')
                                 ->label('When did this happen?')
                                 ->default(now())
                                 ->required()
+                                ->seconds(false)
                                 ->native(false)
-                                ->displayFormat('M j, Y')
+                                ->displayFormat('M j, Y \t g:i A')
                                 ->helperText('Capture the moment ⏰')
                                 ->prefixIcon('heroicon-m-calendar-days')
                                 ->columnSpan([
@@ -59,7 +61,8 @@ trait EntryFormSchemaTrait
 
                                 TextInput::make('slug')
                                     ->required()
-                                    ->unique(),
+                                    ->unique()
+                                    ->helperText('Auto Generated: Edit only if there is an error'),
                             ])
                                 ->columns(2)
                                 ->columnSpanFull()
@@ -84,10 +87,7 @@ trait EntryFormSchemaTrait
                 ])
                 ->collapsible()
                 ->persistCollapsed()
-                ->compact()
-                ->extraAttributes([
-                    'class' => 'bg-gradient-to-r from-primary-50 to-primary-100 dark:from-primary-950 dark:to-primary-900 border border-primary-200 dark:border-primary-800',
-                ]),
+                ->compact(),
 
             Section::make('✍️ Your Story')
                 ->description('Pour your heart out - write about your day, thoughts, dreams, and experiences')

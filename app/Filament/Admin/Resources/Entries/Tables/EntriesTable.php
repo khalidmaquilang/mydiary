@@ -34,7 +34,7 @@ class EntriesTable
                 TextColumn::make('title')
                     ->searchable(),
                 TextColumn::make('entry_date')
-                    ->date()
+                    ->dateTime()
                     ->sortable(),
                 TextColumn::make('mood')
                     ->badge(),
