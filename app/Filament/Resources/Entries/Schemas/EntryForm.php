@@ -11,6 +11,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Hidden;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
@@ -33,27 +34,6 @@ class EntryForm
                             'md' => 3,
                         ])
                             ->schema([
-                                TextInput::make('title')
-                                    ->label('What\'s on your mind?')
-                                    ->placeholder('Give your entry a catchy title...')
-                                    ->required()
-                                    ->maxLength(255)
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (?string $state, Set $set): mixed => $set('slug', Str::slug($state ?? '')))
-                                    ->helperText('This will be the headline of your memory 📖')
-                                    ->prefixIcon('heroicon-m-pencil-square')
-                                    ->columnSpan([
-                                        'default' => 1,
-                                        'md' => 2,
-                                    ])
-                                    ->extraAttributes([
-                                        'class' => 'font-medium',
-                                    ]),
-                                
-                                Hidden::make('slug')
-                                    ->required()
-                                    ->unique(ignoreRecord: true),
-
                                 DateTimePicker::make('entry_date')
                                     ->label('When did this happen?')
                                     ->default(now())
@@ -67,6 +47,27 @@ class EntryForm
                                         'default' => 1,
                                         'md' => 1,
                                     ]),
+
+                                Group::make([
+                                    TextInput::make('title')
+                                        ->label('What\'s on your mind?')
+                                        ->placeholder('Give your entry a catchy title...')
+                                        ->required()
+                                        ->maxLength(255)
+                                        ->live(onBlur: true)
+                                        ->afterStateUpdated(fn (?string $state, Set $set): mixed => $set('slug', Str::slug($state ?? '')))
+                                        ->helperText('This will be the headline of your memory 📖')
+                                        ->prefixIcon('heroicon-m-pencil-square')
+                                        ->extraAttributes([
+                                            'class' => 'font-medium',
+                                        ]),
+
+                                    TextInput::make('slug')
+                                        ->required()
+                                        ->unique(),
+                                ])
+                                    ->columns(2)
+                                    ->columnSpanFull()
                             ]),
 
                         // Mood Selection
