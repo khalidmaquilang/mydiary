@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use App\Features\Entry\Enums\EntryMoodEnum;
+use App\Features\Entry\Models\Scopes\EntryScope;
+use App\Features\Entry\Models\Traits\EntryFormSchemaTrait;
+use App\Features\Entry\Models\Traits\EntryInfolistSchemaTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,19 +14,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Entry extends Model
 {
+    use EntryFormSchemaTrait;
+    use EntryInfolistSchemaTrait;
     use HasFactory;
     use SoftDeletes;
 
     public static function booted(): void
     {
-        static::addGlobalScope('own_entry', function (Builder $builder): void {
-            $user_id = auth()->id();
-            if ($user_id === null) {
-                return;
-            }
-
-            $builder->where('user_id', $user_id);
-        });
+        static::addGlobalScope(new EntryScope());
 
         static::creating(function (Entry $entry) {
             $user = auth()->user();

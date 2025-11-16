@@ -1,0 +1,156 @@
+<?php
+
+namespace App\Features\Entry\Models\Traits;
+
+use App\Features\Entry\Enums\EntryMoodEnum;
+use App\Models\Entry;
+use CodeWithDennis\FilamentLucideIcons\Enums\LucideIcon;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\RichEditor\RichContentRenderer;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Group;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Support\Enums\FontWeight;
+use Filament\Support\Enums\TextSize;
+
+trait EntryInfolistSchemaTrait
+{
+    public static function getInfolist(): array
+    {
+        return [
+            Grid::make()
+                ->columns(4)
+                ->columnSpanFull()
+                ->schema([
+                    Grid::make()
+                        ->columnSpan(3)
+                        ->schema([
+                            Section::make('✍️ Your Story')
+                                ->description('The memory captured in this entry - your thoughts, dreams, and experiences')
+                                ->icon(LucideIcon::BookOpen)
+                                ->schema([
+                                    TextEntry::make('content')
+                                        ->label('Your Entry')
+                                        ->state(function (Entry $record): string {
+                                            return RichContentRenderer::make($record->content)->toHtml();
+                                        })
+                                        ->prose()
+                                        ->columnSpanFull()
+                                        ->extraAttributes([
+                                            'style' => 'min-height: 8rem;',
+                                        ]),
+
+                                    // Word count and reading time
+                                    TextEntry::make('reading_stats')
+                                        ->label('Reading Statistics')
+                                        ->state(function (Entry $record): string {
+                                            $content = strip_tags(RichContentRenderer::make($record->content)->toHtml());
+                                            $wordCount = str_word_count($content);
+                                            $readingTime = max(1, ceil($wordCount / 200)); // Average reading speed: 200 words/minute
+
+                                            return "📊 {$wordCount} words • ⏱️ {$readingTime} min read";
+                                        })
+                                        ->color('gray')
+                                        ->size(TextSize::Small)
+                                        ->icon(LucideIcon::Info)
+                                        ->columnSpanFull()
+                                        ->helperText('Statistics about your entry ✨')
+                                        ->extraAttributes([
+                                            'class' => 'mt-4 pt-4 border-t border-gray-200 dark:border-gray-700',
+                                        ]),
+                                ])
+                                ->collapsible()
+                                ->persistCollapsed()
+                                ->compact(false)
+                                ->columnSpanFull()
+                                ->extraAttributes([
+                                    'class' => 'mt-6 entry-content-section',
+                                ]),
+                        ]),
+                    Grid::make()
+                        ->schema([
+                            // Entry Title Section
+                            Section::make('📝 Entry Details')
+                                ->description('Your diary entry information')
+                                ->icon(LucideIcon::Text)
+                                ->schema([
+                                    TextEntry::make('title')
+                                        ->label('Title')
+                                        ->size(TextSize::Large)
+                                        ->weight(FontWeight::Bold)
+                                        ->color('primary')
+                                        ->copyable()
+                                        ->copyMessage('Title copied to clipboard! 📋')
+                                        ->columnSpanFull()
+                                        ->extraAttributes([
+                                            'class' => 'font-medium',
+                                        ]),
+                                ])
+                                ->columnSpanFull()
+                                ->compact()
+                                ->extraAttributes([
+                                    'class' => 'bg-gradient-to-r from-primary-50 to-primary-100 dark:from-primary-950 dark:to-primary-900 border border-primary-200 dark:border-primary-800',
+                                ]),
+                            Section::make('📅 Timeline')
+                                ->description('When this memory was captured')
+                                ->icon(LucideIcon::CalendarDays)
+                                ->schema([
+                                    TextEntry::make('entry_date')
+                                        ->label('Entry Date')
+                                        ->dateTime('l, M j, Y \a\t g:i A')
+                                        ->badge()
+                                        ->color('primary')
+                                        ->icon(LucideIcon::CalendarDays)
+                                        ->size(TextSize::Medium)
+                                        ->weight(FontWeight::Medium)
+                                        ->placeholder('Date not set')
+                                        ->helperText('When this moment happened ⏰'),
+
+                                    TextEntry::make('created_at')
+                                        ->label('Written')
+                                        ->since()
+                                        ->dateTooltip()
+                                        ->icon(LucideIcon::Pencil)
+                                        ->color('gray')
+                                        ->size(TextSize::Small),
+
+                                    TextEntry::make('updated_at')
+                                        ->label('Last Modified')
+                                        ->since()
+                                        ->dateTooltip()
+                                        ->icon(LucideIcon::RotateCcw)
+                                        ->color('gray')
+                                        ->size(TextSize::Small)
+                                        ->visible(fn (Entry $record): bool => $record->created_at->ne($record->updated_at)),
+                                ])
+                                ->compact()
+                                ->columnSpanFull(),
+
+                            Section::make('💭 Emotional State')
+                                ->description('How you were feeling')
+                                ->icon(LucideIcon::Heart)
+                                ->schema([
+                                    TextEntry::make('mood')
+                                        ->label('Mood')
+                                        ->badge()
+                                        ->size(TextSize::Large)
+                                        ->weight(FontWeight::Medium)
+                                        ->placeholder('🤔 No mood recorded')
+                                        ->helperText('Your emotional state 💭')
+                                        ->columnSpanFull(),
+                                ])
+                                ->compact()
+                                ->columnSpanFull()
+                                ->extraAttributes([
+                                    'class' => 'text-center',
+                                ]),
+                        ]),
+                ]),
+        ];
+    }
+}

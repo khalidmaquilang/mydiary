@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Entries\Schemas;
+namespace App\Filament\Admin\Resources\Entries\Schemas;
 
 use App\Models\Entry;
 use CodeWithDennis\FilamentLucideIcons\Enums\LucideIcon;
