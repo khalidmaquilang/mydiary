@@ -72,6 +72,7 @@ trait EntryFormSchemaTrait
                     Grid::make(1)
                         ->schema([
                             Select::make('mood')
+                                ->required()
                                 ->label('How are you feeling right now?')
                                 ->options(EntryMoodEnum::class)
                                 ->placeholder('Choose the emotion that best describes you...')
