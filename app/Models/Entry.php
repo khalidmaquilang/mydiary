@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Features\Entry\Enums\EntryMoodEnum;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,6 +16,15 @@ class Entry extends Model
 
     public static function booted(): void
     {
+        static::addGlobalScope('own_entry', function (Builder $builder): void {
+            $user_id = auth()->id();
+            if ($user_id === null) {
+                return;
+            }
+
+            $builder->where('user_id', $user_id);
+        });
+
         static::creating(function (Entry $entry) {
             $user = auth()->user();
             abort_if($user === null, 404);
