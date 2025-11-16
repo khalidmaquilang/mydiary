@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Entries\Schemas;
 
 use App\Features\Entry\Enums\EntryMoodEnum;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\RichEditor;
@@ -34,13 +35,12 @@ class EntryForm
                             'md' => 3,
                         ])
                             ->schema([
-                                DateTimePicker::make('entry_date')
+                                DatePicker::make('entry_date')
                                     ->label('When did this happen?')
                                     ->default(now())
                                     ->required()
-                                    ->seconds(false)
                                     ->native(false)
-                                    ->displayFormat('M j, Y \a\t g:i A')
+                                    ->displayFormat('M j, Y')
                                     ->helperText('Capture the moment ⏰')
                                     ->prefixIcon('heroicon-m-calendar-days')
                                     ->columnSpan([
@@ -117,6 +117,12 @@ class EntryForm
                             ->extraAttributes([
                                 'class' => 'prose-style-entry',
                                 'style' => 'min-height: 24rem;',
+                            ])
+                            ->toolbarButtons([
+                                ['bold', 'italic', 'underline', 'strike', 'subscript', 'superscript', 'link'],
+                                ['h2', 'h3', 'alignStart', 'alignCenter', 'alignEnd'],
+                                ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
+                                ['undo', 'redo'],
                             ]),
                     ])
                     ->collapsible()
