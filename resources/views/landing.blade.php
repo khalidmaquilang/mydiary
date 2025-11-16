@@ -3,7 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Diary - Your Personal Journal</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>My Diary - Your Personal Digital Journal & Mood Tracker</title>
+    <meta name="title" content="My Diary - Your Personal Digital Journal & Mood Tracker">
+    <meta name="description" content="Create your personal digital diary with My Diary. Track your moods, capture thoughts and memories in a secure, beautiful journal. Start writing today - completely private and free.">
+    <meta name="keywords" content="digital diary, personal journal, mood tracker, private diary, online journal, daily thoughts, memories, secure diary app">
+    <meta name="author" content="My Diary">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url('/') }}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:title" content="My Diary - Your Personal Digital Journal & Mood Tracker">
+    <meta property="og:description" content="Create your personal digital diary with My Diary. Track your moods, capture thoughts and memories in a secure, beautiful journal. Start writing today - completely private and free.">
+    <meta property="og:image" content="{{ url('/') }}/favicon.ico">
+    <meta property="og:image:alt" content="My Diary - Digital Journal Application">
+    <meta property="og:site_name" content="My Diary">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url('/') }}">
+    <meta property="twitter:title" content="My Diary - Your Personal Digital Journal & Mood Tracker">
+    <meta property="twitter:description" content="Create your personal digital diary with My Diary. Track your moods, capture thoughts and memories in a secure, beautiful journal. Start writing today - completely private and free.">
+    <meta property="twitter:image" content="{{ url('/') }}/favicon.ico">
+    <meta property="twitter:image:alt" content="My Diary - Digital Journal Application">
+    
+    <!-- Additional SEO Tags -->
+    <meta name="theme-color" content="#d97706">
+    <meta name="msapplication-TileColor" content="#d97706">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gradient-to-br from-amber-50 to-orange-100 min-h-screen">
