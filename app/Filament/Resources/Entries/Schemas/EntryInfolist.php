@@ -31,15 +31,10 @@ class EntryInfolist
                                     ->schema([
                                         TextEntry::make('content')
                                             ->label('Your Entry')
-                                            ->state(function (Entry $record): HtmlString {
-                                                $content = RichContentRenderer::make($record->content)->toHtml();
-
-                                                return new HtmlString(
-                                                    '<div class="prose prose-lg prose-gray dark:prose-invert max-w-none prose-headings:text-primary-600 dark:prose-headings:text-primary-400 prose-p:leading-relaxed prose-blockquote:border-primary-200 dark:prose-blockquote:border-primary-800 prose-blockquote:bg-primary-50 dark:prose-blockquote:bg-primary-950 prose-blockquote:p-4 prose-blockquote:rounded-lg prose-style-entry">' .
-                                                    $content .
-                                                    '</div>'
-                                                );
+                                            ->state(function (Entry $record): string {
+                                                return RichContentRenderer::make($record->content)->toHtml();
                                             })
+                                            ->prose()
                                             ->columnSpanFull()
                                             ->extraAttributes([
                                                 'style' => 'min-height: 8rem;',
