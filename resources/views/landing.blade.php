@@ -39,8 +39,10 @@
     <meta name="format-detection" content="telephone=no">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -51,7 +53,7 @@
             <div class="flex justify-between items-center py-6">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <h1 class="text-3xl font-bold text-amber-800">📖 My Diary</h1>
+                        <img src="/mydiary.png" alt="My Diary Logo" class="h-16" />
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -158,7 +160,6 @@
     <footer class="bg-gray-800 text-white py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h4 class="text-lg font-semibold mb-2">📖 My Diary</h4>
                 <p class="text-gray-400">Your personal space for thoughts, memories, and reflections.</p>
                 <div class="mt-4 text-sm text-gray-500">
                     &copy; {{ date('Y') }} My Diary. All rights reserved.
