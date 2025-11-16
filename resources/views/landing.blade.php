@@ -156,6 +156,25 @@
         </div>
     </main>
 
+    <!-- Support Section -->
+    <div class="bg-gray-50 py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                    Love My Diary? Support Our Development!
+                </h3>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Help us keep improving and maintaining this app. Your support allows us to add new features and keep the service free for everyone.
+                </p>
+            </div>
+            
+            <!-- Donation Component -->
+            <div class="flex justify-center">
+                @livewire('donation-support', ['paypalUsername' => 'eskie143'])
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
