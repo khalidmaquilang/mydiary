@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Entries\Schemas;
 
 use App\Features\Entry\Enums\EntryMoodEnum;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -22,10 +23,15 @@ class EntryForm
         return $schema
             ->components([
                 Section::make('📝 Entry Details')
+                    ->columnSpanFull()
                     ->description('Create your diary entry with a meaningful title, date, and mood')
                     ->icon('heroicon-o-document-text')
                     ->schema([
-                        Grid::make(3)
+                        // Title and Date Row
+                        Grid::make([
+                            'default' => 1,
+                            'md' => 3,
+                        ])
                             ->schema([
                                 TextInput::make('title')
                                     ->label('What\'s on your mind?')
@@ -34,13 +40,19 @@ class EntryForm
                                     ->maxLength(255)
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(fn (?string $state, Set $set): mixed => $set('slug', Str::slug($state ?? '')))
-                                    ->helperText('This will be the headline of your memory')
+                                    ->helperText('This will be the headline of your memory 📖')
                                     ->prefixIcon('heroicon-m-pencil-square')
-                                    ->columnSpan(2),
+                                    ->columnSpan([
+                                        'default' => 1,
+                                        'md' => 2,
+                                    ])
+                                    ->extraAttributes([
+                                        'class' => 'font-medium',
+                                    ]),
                                 
                                 Hidden::make('slug')
                                     ->required()
-                                    ->unique(),
+                                    ->unique(ignoreRecord: true),
 
                                 DateTimePicker::make('entry_date')
                                     ->label('When did this happen?')
@@ -49,52 +61,70 @@ class EntryForm
                                     ->seconds(false)
                                     ->native(false)
                                     ->displayFormat('M j, Y \a\t g:i A')
-                                    ->helperText('Capture the moment')
+                                    ->helperText('Capture the moment ⏰')
                                     ->prefixIcon('heroicon-m-calendar-days')
-                                    ->columnSpan(1),
+                                    ->columnSpan([
+                                        'default' => 1,
+                                        'md' => 1,
+                                    ]),
                             ]),
 
+                        // Mood Selection
                         Grid::make(1)
                             ->schema([
                                 Select::make('mood')
                                     ->label('How are you feeling right now?')
                                     ->options(EntryMoodEnum::class)
                                     ->placeholder('Choose the emotion that best describes you...')
-                                    ->helperText('Track your emotional journey - this helps you understand patterns over time')
+                                    ->helperText('Track your emotional journey - this helps you understand patterns over time 💭')
                                     ->prefixIcon('heroicon-m-heart')
                                     ->searchable()
-                                    ->allowHtml(),
+                                    ->allowHtml()
+                                    ->native(false)
+                                    ->extraAttributes([
+                                        'class' => 'mood-selector',
+                                    ]),
                             ]),
                     ])
                     ->collapsible()
                     ->persistCollapsed()
-                    ->compact(),
+                    ->compact()
+                    ->extraAttributes([
+                        'class' => 'bg-gradient-to-r from-primary-50 to-primary-100 dark:from-primary-950 dark:to-primary-900 border border-primary-200 dark:border-primary-800',
+                    ]),
 
                 Section::make('✍️ Your Story')
                     ->description('Pour your heart out - write about your day, thoughts, dreams, and experiences')
                     ->icon('heroicon-o-book-open')
                     ->schema([
+                        // Writing Tip
                         TextEntry::make('writing_tip')
                             ->label('')
-                            ->state('💡 **Writing Tip**: Don\'t worry about perfect grammar or structure. This is your personal space to express yourself freely.')
-                            ->columnSpanFull(),
+                            ->state('💡 **Writing Tip**: Don\'t worry about perfect grammar or structure. This is your personal space to express yourself freely. Let your thoughts flow naturally!')
+                            ->extraAttributes([
+                                'class' => 'bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-4',
+                            ]),
 
+                        // Rich Editor for Content
                         RichEditor::make('content')
-                            ->label('')
+                            ->label('Your Entry')
                             ->placeholder('Dear diary, today was...')
                             ->json()
                             ->required()
                             ->columnSpanFull()
-                            ->helperText('Use the formatting tools to make your entry more expressive. Add links, quotes, lists, and more!')
+                            ->helperText('Use the formatting tools to make your entry more expressive. Add links, quotes, lists, and more! ✨')
                             ->extraAttributes([
                                 'class' => 'prose-style-entry',
-                                'style' => 'min-height: 20rem; max-height: 50vh; overflow-y: auto;'
+                                'style' => 'min-height: 24rem;',
                             ]),
                     ])
                     ->collapsible()
                     ->persistCollapsed()
                     ->compact(false)
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->extraAttributes([
+                        'class' => 'mt-6',
+                    ]),
             ]);
     }
 }
