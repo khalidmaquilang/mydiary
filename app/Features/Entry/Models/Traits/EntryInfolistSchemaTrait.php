@@ -92,10 +92,7 @@ trait EntryInfolistSchemaTrait
                                         ]),
                                 ])
                                 ->columnSpanFull()
-                                ->compact()
-                                ->extraAttributes([
-                                    'class' => 'bg-gradient-to-r from-primary-50 to-primary-100 dark:from-primary-950 dark:to-primary-900 border border-primary-200 dark:border-primary-800',
-                                ]),
+                                ->compact(),
                             Section::make('📅 Timeline')
                                 ->description('When this memory was captured')
                                 ->icon(LucideIcon::CalendarDays)
