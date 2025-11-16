@@ -1,0 +1,8 @@
+created:
+    - database/factories/EntryFactory.php
+    - database/migrations/2025_11_16_063051_create_entries_table.php
+    - app/Models/Entry.php
+    - database/seeders/EntrySeeder.php
+models:
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string nullable' }
+    Entry: { title: string, slug: 'string unique', content: longtext, relationships: { belongsTo: User } }

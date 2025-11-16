@@ -1,0 +1,9 @@
+models:
+  Entry:
+    title: string
+    slug: string unique
+    content: json
+    relationships:
+      belongsTo: User
+
+seeders: Entry
