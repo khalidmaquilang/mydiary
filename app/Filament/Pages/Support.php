@@ -10,5 +10,7 @@ class Support extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = LucideIcon::Heart;
 
+    protected static ?int $navigationSort = 3;
+
     protected string $view = 'filament.pages.support';
 }
