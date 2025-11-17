@@ -12,6 +12,7 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\Width;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -60,6 +61,10 @@ class AppPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->renderHook(
+                PanelsRenderHook::HEAD_END,
+                fn (): string => '<meta name="google-adsense-account" content="ca-pub-7977996735911488">'
+            )
             ->viteTheme('resources/css/filament/app/theme.css')
             ->plugin(BriskTheme::make());
     }

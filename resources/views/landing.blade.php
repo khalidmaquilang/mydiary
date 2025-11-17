@@ -11,6 +11,7 @@
     <meta name="keywords" content="digital diary, personal journal, mood tracker, private diary, online journal, daily thoughts, memories, secure diary app">
     <meta name="author" content="My Diary">
     <meta name="robots" content="index, follow">
+    <meta name="google-adsense-account" content="ca-pub-7977996735911488">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ url('/') }}">
