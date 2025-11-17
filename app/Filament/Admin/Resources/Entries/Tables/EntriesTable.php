@@ -65,6 +65,7 @@ class EntriesTable
                     ForceDeleteBulkAction::make(),
                     RestoreBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('entry_date', 'desc');
     }
 }
